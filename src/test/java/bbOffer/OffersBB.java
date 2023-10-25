@@ -14,6 +14,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.Test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -30,8 +31,10 @@ public void offersBblist() throws InterruptedException, IOException
 	driver.get("https://www.bigbasket.com/");
 	
 	driver.findElement(By.xpath("//img[@src='http://www.bigbasket.com/media/uploads/banner_images/hp_cmc_m_offer_28_220921_all.png']")).click();
+	Thread.sleep(3000);
 	List<WebElement> items=driver.findElements(By.xpath("//h2[text()='Best Sellers']/ancestor::section[@class='row custom-component carousel-section ng-scope']/descendant::div[@class='col-sm-12 col-xs-7 prod-name']/a"));
-int count=items.size();
+Thread.sleep(3000);
+	int count=items.size();
 System.out.println(count+"items are present in banner1");
 
 
@@ -41,7 +44,9 @@ for(int j=0;j<count;j++)
 	System.out.println(title);
 	if((j+1)%5==0 && j<count-1)
 	{
-		driver.findElement(By.xpath("(//div[@class='owl-stage-outer'])[1]/following-sibling::div[@class='owl-nav']/child::div[@class='owl-next']")).click();	
+		WebElement btn1 = driver.findElement(By.xpath("(//div[@class='owl-stage-outer'])[1]/following-sibling::div[@class='owl-nav']/child::div[@class='owl-next']"));
+		RemoteWebDriver rw1=(RemoteWebDriver) driver;
+		rw1.executeScript("arguments[0].click()", btn1);
 		Thread.sleep(1000);
 
 	}
@@ -87,7 +92,10 @@ for(int j=0;j<count;j++)
 	System.out.println(title3);	
 	if((j+1)%5==0 && j<count-1)
 	{
-		driver.findElement(By.xpath("(//div[@class='owl-stage-outer'])[1]/following-sibling::div[@class='owl-nav']/child::div[@class='owl-next']")).click();
+		WebElement btn = driver.findElement(By.xpath("(//div[@class='owl-stage-outer'])[1]/following-sibling::div[@class='owl-nav']/child::div[@class='owl-next']"));
+		
+		RemoteWebDriver rw=(RemoteWebDriver) driver;
+		rw.executeScript("arguments[0].click()", btn);
 		Thread.sleep(1000);
 
 	}
